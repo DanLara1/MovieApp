@@ -4,6 +4,7 @@ import { Text, View, StyleSheet, Dimensions, FlatList } from 'react-native';
 import { getPopularMovies, getUpcomingMovies } from '../services/services';
 import { SliderBox } from 'react-native-image-slider-box'
 import react from 'react';
+import List from '../components/List';
 
 const dimentions = Dimensions.get('screen');
 const Home = () => {
@@ -46,6 +47,9 @@ const Home = () => {
             data={popularMovies}
             horizontal={true} 
             renderItem={({item}) => <Text>{item.title}</Text>} />
+    </View>
+    <View>
+        <List title="List component title"></List>
     </View>
     </react.Fragment> 
     );
