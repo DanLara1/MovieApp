@@ -42,8 +42,8 @@ const Home = () => {
             circleLoop = {true}
         />
     </View>
-    <View style={stlyles.carousel}>
-        <List title="List component title" content={popularMovies}></List>
+    <View style={styles.carousel}>
+        <List title="Popular Movies" content={popularMovies}></List>
     </View>
     </react.Fragment> 
     );
