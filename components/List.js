@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, Dimensions, FlatList } from 'react-native';
+import Card from './Card';
 
 
 class List extends React.PureComponent {
@@ -14,7 +15,7 @@ class List extends React.PureComponent {
                 <FlatList 
                     data={content}
                     horizontal={true} 
-                    renderItem={({item}) => <Text>{item.title}</Text>}
+                    renderItem={({item}) => <Card item={item} />}
                 />
                 </View>
             </View>
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     },
     list: {
         marginTop: 25,
-        
+
     }
 })
 
