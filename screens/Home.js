@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { Text, View, StyleSheet, Dimensions, ScrollView } from 'react-native';
 
-import { getPopularMovies, getUpcomingMovies } from '../services/services';
+import { getPopularMovies, getUpcomingMovies, getPopularTv } from '../services/services';
 import { SliderBox } from 'react-native-image-slider-box'
 import react from 'react';
 import List from '../components/List';
@@ -11,6 +11,7 @@ const Home = () => {
     console.log(dimentions);
     const [movieImages, setMovieImages] = useState('');
     const [popularMovies, setpopularMovies] = useState('');
+    const [popularTv, setPopularTv] = useState('')
     const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -29,7 +30,14 @@ const Home = () => {
     })
     .catch(err => {
         setError(err);
+    });
+
+    getPopularTv().then(movies => {
+        setPopularTv(movies)
     })
+    .catch(err => {
+        setError(err);
+    });
   }, []);
     return (
     <react.Fragment>
@@ -44,7 +52,10 @@ const Home = () => {
         />
     </View>
     <View style={styles.carousel}>
-        <List title="Popular Movies" content={popularMovies}></List>
+        <List title="Popular Movies" content={popularMovies} />
+    </View>
+    <View style={styles.carousel}>
+        <List title="Popular TV Shows" content={popularTv} />
     </View>
     </ScrollView>
     </react.Fragment> 
