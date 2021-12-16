@@ -1,13 +1,15 @@
 import React, { useEffect, useState} from 'react';
-import { Text, View, StyleSheet, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, Dimensions, FlatList } from 'react-native';
 
 import { getPopularMovies, getUpcomingMovies } from '../services/services';
 import { SliderBox } from 'react-native-image-slider-box'
+import react from 'react';
 
 const dimentions = Dimensions.get('screen');
 const Home = () => {
     console.log(dimentions);
     const [movieImages, setMovieImages] = useState('');
+    const [popularMovies, setpopularMovies] = useState('');
     const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -22,12 +24,14 @@ const Home = () => {
     });
 
     getPopularMovies().then(movies => {
+        setpopularMovies(movies)
     })
     .catch(err => {
         setError(err);
     })
   }, []);
     return (
+    <react.Fragment> 
     <View styles={styles.sliderContainer}>
         <SliderBox 
             images = {movieImages} 
@@ -37,6 +41,13 @@ const Home = () => {
             circleLoop = {true}
         />
     </View>
+    <View styles={styles.carousel}>
+        <FlatList 
+            data={popularMovies}
+            horizontal={true} 
+            renderItem={({item}) => <Text>{item.title}</Text>} />
+    </View>
+    </react.Fragment> 
     );
 }
 
@@ -48,6 +59,11 @@ const styles = StyleSheet.create({
     },
     sliderStyle: {
         height: 0
+    },
+    carousel: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 });
 
