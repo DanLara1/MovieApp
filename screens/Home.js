@@ -9,51 +9,39 @@ import List from '../components/List';
 const dimentions = Dimensions.get('screen');
 const Home = () => {
     console.log(dimentions);
+    const [upcomingMovies, setUpcomingMovies] = useState('');
     const [movieImages, setMovieImages] = useState('');
     const [popularMovies, setpopularMovies] = useState('');
     const [popularTv, setPopularTv] = useState('');
     const [familyMovies, setFamilyMovies] = useState('');
     const [documentary, setDocumentary] = useState('');
     const [error, setError] = useState(false);
+    
+    const getData = () => {
+        return Promise.all([
+            getUpcomingMovies(),
+            getPopularMovies(),
+            getPopularTv().
+            getFamilyMovies(),
+            getDocumentary(),
+        ]);
+    };
 
   useEffect(() => {
-    getUpcomingMovies().then(movies => {
+
+    getData().then(([upcomingMovies, popularMovies, popularTv, familyMovies, documentary]) => {
         const moviesImagesArray = [];
-        movies.forEach(movie => {
-            moviesImagesArray.push('https://image.tmdb.org/t/p/w500'+ movie.poster_path);
+        upcomingMovies.forEach(movie => {
+            moviesImagesArray.push('https://image.tmdb.org/t/p/w500' + movie.poster_path);
         });
         setMovieImages(moviesImagesArray);
-    }) .catch(err => {
-        setError(err);
-    });
-
-    getPopularMovies().then(movies => {
-        setpopularMovies(movies)
-    })
-    .catch(err => {
-        setError(err);
-    });
-
-    getPopularTv().then(movies => {
-        setPopularTv(movies)
-    })
-    .catch(err => {
-        setError(err);
-    });
-
-    getFamilyMovies().then(movies => {
-        setFamilyMovies(movies)
-    })
-    .catch(err => {
-        setError(err);
-    });
-
-    getDocumentary().then(movies => {
-        setDocumentary(movies)
-    })
-    .catch(err => {
-        setError(err);
-    });
+        setpopularMovies(popularMovies);
+        setPopularTv(popularTv);
+        setFamilyMovies(familyMovies);
+        setDocumentary(documentary);
+    }).catch(err => [
+        setError(err)
+    ]);
   }, []);
     return (
     <react.Fragment>
