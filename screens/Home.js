@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { Text, View, StyleSheet, Dimensions, ScrollView } from 'react-native';
 
-import { getPopularMovies, getUpcomingMovies, getPopularTv, getFamilyMovies } from '../services/services';
+import { getPopularMovies, getUpcomingMovies, getPopularTv, getFamilyMovies, getDocumentary } from '../services/services';
 import { SliderBox } from 'react-native-image-slider-box'
 import react from 'react';
 import List from '../components/List';
@@ -13,6 +13,7 @@ const Home = () => {
     const [popularMovies, setpopularMovies] = useState('');
     const [popularTv, setPopularTv] = useState('');
     const [familyMovies, setFamilyMovies] = useState('');
+    const [documentary, setDocumentary] = useState('');
     const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -46,6 +47,13 @@ const Home = () => {
     .catch(err => {
         setError(err);
     });
+
+    getDocumentary().then(movies => {
+        setDocumentary(movies)
+    })
+    .catch(err => {
+        setError(err);
+    });
   }, []);
     return (
     <react.Fragment>
@@ -67,6 +75,9 @@ const Home = () => {
     </View>
     <View style={styles.carousel}>
         <List title="Family Movies" content={familyMovies} />
+    </View>
+    <View style={styles.carousel}>
+        <List title="Documentaries" content={documentary} />
     </View>
     </ScrollView>
     </react.Fragment> 

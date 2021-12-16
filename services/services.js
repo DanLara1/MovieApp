@@ -23,3 +23,7 @@ export const getFamilyMovies = async () => {
     return resp.data.results;
 };
 
+export const getDocumentary = async () => {
+    const resp = await axios.get(`${apiUrl}/genre/movie/list?${apiKey}&with_genres=99`);
+    return resp.data.results;
+};
