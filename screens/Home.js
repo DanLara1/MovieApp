@@ -42,14 +42,8 @@ const Home = () => {
             circleLoop = {true}
         />
     </View>
-    <View styles={styles.carousel}>
-        <FlatList 
-            data={popularMovies}
-            horizontal={true} 
-            renderItem={({item}) => <Text>{item.title}</Text>} />
-    </View>
-    <View>
-        <List title="List component title"></List>
+    <View style={stlyles.carousel}>
+        <List title="List component title" content={popularMovies}></List>
     </View>
     </react.Fragment> 
     );
