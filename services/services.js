@@ -5,15 +5,21 @@ const apiKey = 'api_key=ab1b7ed23a01c9bcca197c9c76f03757';
 
 export const getPopularMovies = async () => {
     const resp = await axios.get(`${apiUrl}/movie/popular?${apiKey}`);
-    return(resp.data.results);
+    return resp.data.results;
 };
 
 export const getUpcomingMovies = async () => {
     const resp = await axios.get(`${apiUrl}/movie/upcoming?${apiKey}`);
-    return(resp.data.results);
+    return resp.data.results;
 };
 
 export const getPopularTv = async () => {
     const resp = await axios.get(`${apiUrl}/tv/popular?${apiKey}`);
-    return(resp.data.results);
+    return resp.data.results;
 };
+
+export const getFamilyMovies = async () => {
+    const resp = await axios.get(`${apiUrl}/discover/movie?${apiKey}&with_genres=10571`);
+    return resp.data.results;
+};
+
