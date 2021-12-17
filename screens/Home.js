@@ -23,7 +23,7 @@ const Home = () => {
         return Promise.all([
             getUpcomingMovies(),
             getPopularMovies(),
-            getPopularTv().
+            //getPopularTv().
             getFamilyMovies(),
             getDocumentary(),
         ]);
