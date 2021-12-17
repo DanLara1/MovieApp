@@ -1,17 +1,19 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
 import PropTypes from 'prop-types';
+import { NavigationContainer } from '@react-navigation/native';
 
 const placeholderImage = require('../assets/images/paper.png');
 
 const propTypes = {
     item: PropTypes.object,
 };
+
 class Card extends React.PureComponent {
     render() {
-        const {item} = this.props;
+        const {item, navigation} = this.props;
         return (
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity onPress={() => navigation.navigate('Detail')} style={styles.container}>
                 <Image 
                     resizeMode='cover'
                     style={styles.image} 

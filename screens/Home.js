@@ -1,17 +1,17 @@
 import React, { useEffect, useState} from 'react';
 import { Text, View, StyleSheet, Dimensions, ScrollView, ActivityIndicator } from 'react-native';
 
-import { getPopularMovies, getUpcomingMovies, getPopularTv, getFamilyMovies, getDocumentary } from '../services/services';
+import { getUpcomingMovies, getPopularMovies, getPopularTv, getFamilyMovies, getDocumentary } from '../services/services';
 import { SliderBox } from 'react-native-image-slider-box'
 import react from 'react';
 import List from '../components/List';
 import Error from '../components/Error';
 
 const dimentions = Dimensions.get('screen');
-const Home = () => {
+const Home = ({ navigation }) => {
     console.log(dimentions);
     const [movieImages, setMovieImages] = useState();
-    const [popularMovies, setpopularMovies] = useState();
+    const [popularMovies, setPopularMovies] = useState();
     const [popularTv, setPopularTv] = useState();
     const [familyMovies, setFamilyMovies] = useState();
     const [documentary, setDocumentary] = useState();
@@ -23,7 +23,7 @@ const Home = () => {
         return Promise.all([
             getUpcomingMovies(),
             getPopularMovies(),
-            //getPopularTv().
+            getPopularTv().
             getFamilyMovies(),
             getDocumentary(),
         ]);
@@ -36,7 +36,7 @@ const Home = () => {
             moviesImagesArray.push('https://image.tmdb.org/t/p/w500' + movie.poster_path);
         });
         setMovieImages(moviesImagesArray);
-        setpopularMovies(popularMoviesData);
+        setPopularMovies(popularMoviesData);
         setPopularTv(popularTvData);
         setFamilyMovies(familyMoviesData);
         setDocumentary(documentaryData);
@@ -61,22 +61,22 @@ const Home = () => {
         </View>) }
         {popularMovies && (
             <View style={styles.carousel}>
-                <List title="Popular Movies" content={popularMovies} />
+                <List navigation={navigation} title="Popular Movies" content={popularMovies} />
             </View>
         )}
         {popularTv && (
             <View style={styles.carousel}>
-                <List title="Popular TV Shows" content={popularTv} />
+                <List navigation={navigation} title="Popular TV Shows" content={popularTv} />
             </View>
         )}
         {familyMovies && (
             <View style={styles.carousel}>
-                <List title="Family Movies" content={familyMovies} />
+                <List navigation={navigation} title="Family Movies" content={familyMovies} />
             </View>
         )}
         {documentary && (
             <View style={styles.carousel}>
-                <List title="Documentaries" content={documentary} />
+                <List navigation={navigation} title="Documentaries" content={documentary} />
             </View>
         )}
         </ScrollView>
