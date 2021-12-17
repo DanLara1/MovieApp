@@ -5,6 +5,7 @@ import { getPopularMovies, getUpcomingMovies, getPopularTv, getFamilyMovies, get
 import { SliderBox } from 'react-native-image-slider-box'
 import react from 'react';
 import List from '../components/List';
+import Error from '../components/Error';
 
 const dimentions = Dimensions.get('screen');
 const Home = () => {
@@ -40,14 +41,15 @@ const Home = () => {
         setPopularTv(popularTvData);
         setFamilyMovies(familyMoviesData);
         setDocumentary(documentaryData);
+    }).catch(() => {
+        setError(true);
+    }).finally(() => {
         setLoaded(true);
-    }).catch(err => [
-        setError(err)
-    ]);
+    });
   }, []);
     return (
     <react.Fragment>
-    {loaded && (
+    {loaded && !error &&(
         <ScrollView> 
         {movieImages && (<View styles={styles.sliderContainer}>
             <SliderBox 
@@ -81,6 +83,7 @@ const Home = () => {
         </ScrollView>
     )}
     {!loaded && <ActivityIndicator size="large"/>}
+    {error && <Error />}
     </react.Fragment> 
     );
 }
