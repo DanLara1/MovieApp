@@ -30,7 +30,6 @@ const Home = () => {
     };
 
   useEffect(() => {
-
     getData().then(([upcomingMoviesData, popularMoviesData, popularTvData, familyMoviesData, documentaryData]) => {
         const moviesImagesArray = [];
         upcomingMoviesData.forEach(movie => {

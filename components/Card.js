@@ -11,7 +11,7 @@ class Card extends React.PureComponent {
     render() {
         const {item} = this.props;
         return (
-            <TouchableOpacity style={style.container}>
+            <TouchableOpacity style={styles.container}>
                 <Image 
                     resizeMode='cover'
                     style={styles.image} 

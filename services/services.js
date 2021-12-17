@@ -24,6 +24,6 @@ export const getFamilyMovies = async () => {
 };
 
 export const getDocumentary = async () => {
-    const resp = await axios.get(`${apiUrl}/genre/movie/list?${apiKey}&with_genres=99`);
+    const resp = await axios.get(`${apiUrl}/discover/movie?${apiKey}&with_genres=99`);
     return resp.data.results;
 };

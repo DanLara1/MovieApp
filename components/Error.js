@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 
 const propTypes = {
