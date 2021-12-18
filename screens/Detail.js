@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, Text, StyleSheet, Dimensions, ActivityIndicator, View } from 'react-native';
 import StarRating from 'react-native-star-rating';
+import { isDisabled } from 'react-native/Libraries/LogBox/Data/LogBoxData';
 
 import { getMovie } from '../services/services';
 
@@ -45,7 +46,11 @@ const Detail = ({route, navigation }) => {
                             </View>
                         )}
                         <StarRating
-                            maxStars={5} rating={movieDetail.vote_average / 2}
+                            disabled={true}
+                            maxStars={5}
+                            starSize={30} 
+                            rating={movieDetail.vote_average / 2}
+                            fullStarColor={gold}
                         />
                     </View>
                 </ScrollView>
@@ -73,7 +78,8 @@ const styles = StyleSheet.create({
     genresContainer: {
         flexDirection: 'row',
         alignContent: 'center',
-        marginTop: 20
+        marginTop: 20,
+        marginBottom: 20
     },
     genre: {
         marginRight: 10,
