@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, Text, StyleSheet, Dimensions, ActivityIndicator, View } from 'react-native';
+import StarRating from 'react-native-star-rating';
 
 import { getMovie } from '../services/services';
 
@@ -43,6 +44,9 @@ const Detail = ({route, navigation }) => {
                                 })}
                             </View>
                         )}
+                        <StarRating
+                            maxStars={5} rating={movieDetail.vote_average / 2}
+                        />
                     </View>
                 </ScrollView>
             )}
