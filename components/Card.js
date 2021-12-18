@@ -13,7 +13,7 @@ class Card extends React.PureComponent {
     render() {
         const {item, navigation} = this.props;
         return (
-            <TouchableOpacity onPress={() => navigation.navigate('Detail', {MovieDetail: item})} style={styles.container}>
+            <TouchableOpacity onPress={() => navigation.navigate('Detail', {movieId: item.id})} style={styles.container}>
                 <Image 
                     resizeMode='cover'
                     style={styles.image} 
