@@ -53,6 +53,8 @@ const Detail = ({route, navigation }) => {
                             fullStarColor={gold}
                         />
                     </View>
+                    <Text style={styles.overview}>{movieDetail.overview}</Text>
+                    <Text style={styles.releaseDate}>{'Release Date: ' + movieDetail.release_date}</Text>
                 </ScrollView>
             )}
             {!loaded && <ActivityIndicator size='large' />}
@@ -83,7 +85,13 @@ const styles = StyleSheet.create({
     },
     genre: {
         marginRight: 10,
-        fontWeight: 'bold',
+        fontWeight: 'bold'
+    },
+    overview: {
+        padding: 15
+    },
+    releaseDate: {
+        fontWeight: 'bold'
     }
 });
 
