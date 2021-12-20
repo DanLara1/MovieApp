@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, Text, StyleSheet, Dimensions, ActivityIndicator, View } from 'react-native';
 import StarRating from 'react-native-star-rating';
 import { isDisabled } from 'react-native/Libraries/LogBox/Data/LogBoxData';
+import dateFormat from 'dateformat';
 
 import { getMovie } from '../services/services';
+import PlayButton from '../components/PlayButton';
 
 const placeholderImage = require('../assets/images/paper.png');
 const height = Dimensions.get('screen').height
@@ -35,6 +37,9 @@ const Detail = ({route, navigation }) => {
                     }
                     />
                     <View style={styles.container}>
+                        <View style={styles.playButton}>
+                            <PlayButton></PlayButton>
+                        </View>
                         <Text style={styles.movieTitle}>{movieDetail.title}</Text>
                         {movieDetail.genres && (
                             <View style={styles.genresContainer}>
@@ -54,7 +59,7 @@ const Detail = ({route, navigation }) => {
                         />
                     </View>
                     <Text style={styles.overview}>{movieDetail.overview}</Text>
-                    <Text style={styles.releaseDate}>{'Release Date: ' + movieDetail.release_date}</Text>
+                    <Text style={styles.release}>{'Release Date: ' + dateFormat(movieDetail.release_date, 'dddd, mmmm ds, yyyy')}</Text>
                 </ScrollView>
             )}
             {!loaded && <ActivityIndicator size='large' />}
@@ -90,8 +95,13 @@ const styles = StyleSheet.create({
     overview: {
         padding: 15
     },
-    releaseDate: {
+    release: {
         fontWeight: 'bold'
+    },
+    playButton: {
+        position: 'absolute',
+        top: -25,
+        right: 20,
     }
 });
 
