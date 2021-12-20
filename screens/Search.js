@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
-import { SafeAreaView, TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { SafeAreaView, TextInput, View, StyleSheet, TouchableOpacity, FlatList, Text } from 'react-native';
 import { Icon } from 'react-native-vector-icons/Icon';
 
+import { searchMovieTv } from '../services/services';
+import Card from '../components/Card';
+import Error from '../components/Error';
 
 const Search = ({navigation}) => {
     const [text, onChangeText] = useState();
+    const [searchResults, setSearchResults] = useState();
+    const [error, setError] = useState();
+ 
 
-    const onSubmit = (query) => {
-        console.log(query)
-    }
+    const onSubmit = query => {
+        Promise.all([searchMovieTv(query, 'movie'), searchMovieTv(query, 'tv')])
+        .then(([movies, tv]) => {
+            const data = [...movies, ...tv];
+            setSearchResults(data);
+        })
+        .catch(() => {
+            setError(true);
+        })
+    };
 
     return (
         <React.Fragment>
@@ -25,6 +38,34 @@ const Search = ({navigation}) => {
                     <TouchableOpacity onPress={() => {onSubmit(text)}}>
                         <Icon name={'search-outline'} size={30} />
                     </TouchableOpacity>
+                </View>
+                <View style={styles.searchItems}>
+                    {/* searched items results */}
+                    {searchResults && searchResults.length > 0 && (
+                        <FlatList
+                            numColumns={3}
+                            data={searchRasults}
+                            renderItem={({item}) => (
+                                <Card navigation={navigation} item={item} />
+                            )}
+                            keyExtractor={item => item.id}
+                        />
+                    )}
+                    {/* when searched and no results */}
+                    {searchResults && searchResults.length == 0 && (
+                        <View style={styles.noResults}>
+                            <Text>Sorry, no results mathcing your criteria.</Text>
+                            <Text>Please try different keywords</Text>
+                        </View>
+                    )}
+                    {/* when nothing is searched */}
+                    {!searchResults && (
+                        <View>
+                            <Text>Please type something to begin search!</Text>
+                        </View>
+                    )}
+                    {/* if error when search */}
+                    {error && <Error />}
                 </View>
             </SafeAreaView>
         </React.Fragment>
@@ -48,7 +89,13 @@ const styles = StyleSheet.create({
         flexBasis: 'auto',
         flexGrow: 1,
         paddingRight: 8
+    },
+    searchItems: {
+        padding: 5
+    },
+    noResults: {
+        paddingTop: 20
     }
-})
+});
 
 export default Search;
