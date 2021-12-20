@@ -3,11 +3,11 @@ import { Image, ScrollView, Text, StyleSheet, Dimensions, ActivityIndicator, Vie
 import StarRating from 'react-native-star-rating';
 import { isDisabled } from 'react-native/Libraries/LogBox/Data/LogBoxData';
 import dateFormat from 'dateformat';
-import VideoPlayer from 'react-native-video-controls';
 
 
 import { getMovie } from '../services/services';
 import PlayButton from '../components/PlayButton';
+import Video from '..components/Video';
 
 const placeholderImage = require('../assets/images/paper.png');
 const height = Dimensions.get('screen').height
@@ -71,11 +71,9 @@ const Detail = ({route, navigation }) => {
                     <Text style={styles.overview}>{movieDetail.overview}</Text>
                     <Text style={styles.release}>{'Release Date: ' + dateFormat(movieDetail.release_date, 'dddd, mmmm ds, yyyy')}</Text>
                 </ScrollView>
-                <Modal animationType="slide" visible={modalVisible}>
+                <Modal supportedOrientations={['portrait', 'landscape']} animationType="slide" visible={modalVisible}>
                     <View style={styles.videoModal}>
-                        <VideoPlayer
-                            source={{uri: 'https://vjs.zencdn.net/v/oceans.mp4'}}
-                        />
+                        <Video onClose={showVideo} />
                     </View>
                 </Modal>
                 </View>
