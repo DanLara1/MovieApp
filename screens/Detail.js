@@ -3,6 +3,8 @@ import { Image, ScrollView, Text, StyleSheet, Dimensions, ActivityIndicator, Vie
 import StarRating from 'react-native-star-rating';
 import { isDisabled } from 'react-native/Libraries/LogBox/Data/LogBoxData';
 import dateFormat from 'dateformat';
+import VideoPlayer from 'react-native-video-controls';
+
 
 import { getMovie } from '../services/services';
 import PlayButton from '../components/PlayButton';
@@ -71,9 +73,9 @@ const Detail = ({route, navigation }) => {
                 </ScrollView>
                 <Modal animationType="slide" visible={modalVisible}>
                     <View style={styles.videoModal}>
-                        <Pressable onPress={() => showVideo()}>
-                            <Text>{'Hide Modal'}</Text>
-                        </Pressable>
+                        <VideoPlayer
+                            source={{uri: 'https://vjs.zencdn.net/v/oceans.mp4'}}
+                        />
                     </View>
                 </Modal>
                 </View>
@@ -127,3 +129,8 @@ const styles = StyleSheet.create({
 });
 
 export default Detail;
+
+
+{/* <Pressable onPress={() => showVideo()}>
+                            <Text>{'Hide Modal'}</Text>
+                        </Pressable> */}
